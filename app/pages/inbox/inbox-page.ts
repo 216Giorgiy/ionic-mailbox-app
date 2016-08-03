@@ -1,8 +1,11 @@
 import {Component, ElementRef, ViewChild} from "@angular/core";
+import {ModalController} from 'ionic-angular';
 
 import {ArchivedInbox} from './archived-inbox';
 import {SnoozedInbox} from './snoozed-inbox';
 import {UnreadInbox} from './unread-inbox';
+
+import {ComposeView} from '../compose/compose-view';
 
 import {PressGestureController} from '../../utils/gestures/press-gesture';
 
@@ -25,6 +28,11 @@ import {PressGestureController} from '../../utils/gestures/press-gesture';
       <ion-buttons end *ngIf="activeSegment === 'inbox' && reorderEnabled">
         <button (click)="disableReorder()" primary>Done</button>
       </ion-buttons>
+      <ion-buttons end *ngIf="activeSegment === 'inbox' && !reorderEnabled">
+        <button (click)="openCompose()" primary>
+          <ion-icon ios="ios-create-outline" md="md-create"></ion-icon>
+        </button>
+      </ion-buttons>
     </ion-navbar>
   </ion-header>
   <ion-content [ngSwitch]="activeSegment" #content>
@@ -40,7 +48,7 @@ export class InboxPage{
   private activeSegment: string;
   private reorderEnabled: boolean;
 
-  constructor(private pressGestureController: PressGestureController){
+  constructor(private modalController: ModalController, private pressGestureController: PressGestureController){
       this.activeSegment = 'inbox';
   }
 
@@ -60,5 +68,10 @@ export class InboxPage{
         this.reorderEnabled = true;
       }
     });
+  }
+
+  openCompose(){
+    let modal = this.modalController.create(ComposeView);
+    modal.present();
   }
 }
