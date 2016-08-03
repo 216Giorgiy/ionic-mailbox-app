@@ -1,5 +1,5 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
-import {ViewController} from 'ionic-angular';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ViewController } from 'ionic-angular';
 
 @Component({
   template: `
@@ -90,12 +90,12 @@ export class SnoozeView {
   constructor(private viewController: ViewController) {
   }
 
-  snooze(value:string){
+  snooze(value: string) {
     let remindMeInMillis = this.getSnoozeTime(value);
     this.viewController.dismiss({ snoozedUntilDate: new Date(remindMeInMillis)});
   }
 
-  getSnoozeTime(value:string){
+  getSnoozeTime(value: string) {
     if ( value === 'Later Today' ) {
       return Date.now() + 3 * MILLIS_PER_HOUR;
     } else if ( value === 'This Evening' ) {
@@ -134,8 +134,7 @@ export class SnoozeView {
       month = (month + 3) % 11;
       date.setMonth(month);
       return date.getTime();
-    }
-    else {
+    } else {
       // just return -1 for now
       return -1;
     }

@@ -1,7 +1,7 @@
-import {Component, ContentChildren, ElementRef, QueryList, ViewChildren} from "@angular/core";
-import {App, Alert, Animation, NavController} from 'ionic-angular';
+import { Component, ContentChildren, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { App, Alert, Animation, NavController } from 'ionic-angular';
 
-import {EmailDataProvider, Email} from "./email-data-provider";
+import { Email, EmailDataProvider } from './email-data-provider';
 
 @Component({
   selector: 'archived-inbox',
@@ -17,19 +17,19 @@ import {EmailDataProvider, Email} from "./email-data-provider";
   </ion-list>
   `
 })
-export class ArchivedInbox{
+export class ArchivedInbox {
 
   emails: Email[];
 
-  constructor(private app: App, private emailDataProvider:EmailDataProvider, private nav: NavController){
+  constructor(private app: App, private emailDataProvider: EmailDataProvider, private nav: NavController) {
     this.loadArchivedEmails();
   }
 
-  loadArchivedEmails(){
+  loadArchivedEmails() {
     this.emails = this.emailDataProvider.getArchivedEmails();
   }
 
-  favorite(email:Email){
+  favorite(email: Email) {
     email.favorited = !email.favorited;
   }
 }

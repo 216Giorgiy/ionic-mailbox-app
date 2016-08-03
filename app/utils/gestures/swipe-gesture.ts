@@ -66,14 +66,12 @@ export class SwipeGesture extends BaseHammerGesture {
         this.onSwipeHandler(event);
       }
 
-    }
-    catch (ex) {
+    } catch (ex) {
       console.debug(`onSwipeHandler: Error occured - ${ex.message}`);
       if ( ex instanceof CaptureError ) {
         this.notCaptured(event);
       }
-    }
-    finally {
+    } finally {
       this.started = false;
       this.captured = false;
     }

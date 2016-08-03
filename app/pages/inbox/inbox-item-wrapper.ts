@@ -1,8 +1,8 @@
-import {Component, ContentChild, ElementRef, EventEmitter, Input, Output, SimpleChanges, ViewChild} from '@angular/core';
-import {Animation, App, DisableScroll, Item} from 'ionic-angular';
-import {GestureDirection} from '../../utils/gestures/gesture-direction';
-import {HorizontalEdgePanGesture, HorizontalEdgePanGestureController} from '../../utils/gestures/horizontal-edge-pan-gesture';
-import {TapGestureController} from '../../utils/gestures/tap-gesture';
+import { Component, ContentChild, ElementRef, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Animation, App, DisableScroll, Item } from 'ionic-angular';
+import { GestureDirection } from '../../utils/gestures/gesture-direction';
+import { HorizontalEdgePanGesture, HorizontalEdgePanGestureController } from '../../utils/gestures/horizontal-edge-pan-gesture';
+import { TapGestureController } from '../../utils/gestures/tap-gesture';
 
 @Component({
   selector: `inbox-item-wrapper`,
@@ -36,7 +36,7 @@ import {TapGestureController} from '../../utils/gestures/tap-gesture';
     </div>
   `
 })
-export class InboxItemWrapper{
+export class InboxItemWrapper {
 
   @Input() enabled: boolean;
   @Input() leftLabelTextShort: string;
@@ -60,9 +60,9 @@ export class InboxItemWrapper{
   @Output() rightShortSwipe: EventEmitter<any> = new EventEmitter();
   @Output() rightLongSwipe: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild("itemWrapper") wrapperEleRef: ElementRef;
-  @ViewChild("leftCell") leftCellRef: ElementRef;
-  @ViewChild("rightCell") rightCellRef: ElementRef;
+  @ViewChild('itemWrapper') wrapperEleRef: ElementRef;
+  @ViewChild('leftCell') leftCellRef: ElementRef;
+  @ViewChild('rightCell') rightCellRef: ElementRef;
 
   protected panGesture: HorizontalEdgePanGesture;
   protected cellRect: any;
@@ -85,9 +85,9 @@ export class InboxItemWrapper{
     // give everything a chance to measure itself
     setTimeout( () => {
       this.panGesture = this.panGestureController.create(this.wrapperEleRef, {threshold: DRAG_THRESHOLD, disableScroll: DisableScroll.DuringCapture});
-      this.panGesture.onPanStart((event) => {this.startDrag(event)});
-      this.panGesture.onPanMove((event) => {this.handleDrag(event)});
-      this.panGesture.onPanEnd((event) => {this.endDrag(event)});
+      this.panGesture.onPanStart( (event) => { this.startDrag(event); } );
+      this.panGesture.onPanMove( (event) => { this.handleDrag(event); } );
+      this.panGesture.onPanEnd( (event) => { this.endDrag(event); } );
 
       let tapGesture = this.tapGestureController.create(this.wrapperEleRef, {});
       tapGesture.onTap( () => {
@@ -96,19 +96,19 @@ export class InboxItemWrapper{
     }, 250);
   }
 
-  getContainerWidth(){
+  getContainerWidth() {
     return this.cellRect.width;
   }
 
-  handleTap(){
-    if ( this.started || this.animating || ! this.enabled){
+  handleTap() {
+    if ( this.started || this.animating || ! this.enabled) {
       return;
     }
     this.tapGesture.emit({});
   }
 
   startDrag(event: HammerInput) {
-    if ( this.started || this.animating || ! this.enabled){
+    if ( this.started || this.animating || ! this.enabled) {
       return;
     }
 
@@ -116,16 +116,15 @@ export class InboxItemWrapper{
 
     if ( event.direction === GestureDirection.LEFT ) {
       this.leftToRight = false;
-    }
-    else {
+    } else {
       this.leftToRight = true;
     }
 
     this.started = true;
   }
 
-  handleDrag(event:HammerInput) {
-    if ( ! this.started || this.animating || ! this.enabled ){
+  handleDrag(event: HammerInput) {
+    if ( ! this.started || this.animating || ! this.enabled ) {
       return;
     }
 
@@ -151,7 +150,7 @@ export class InboxItemWrapper{
     this.maximumAchievedVelocity = Math.max(this.maximumAchievedVelocity, event.velocity);
     if ( this.leftToRight ) {
       this.processLeftToRightDrag(event);
-    } else{
+    } else {
       this.processRightToLeftDrag(event);
     }
   }
@@ -164,13 +163,12 @@ export class InboxItemWrapper{
     this.animating = true;
     if ( this.percentageDragged < SHORT_DRAG_PERCENTAGE ) {
       this.shortDrag(event);
-    }
-    else{
+    } else {
       this.longDrag(event);
     }
   }
 
-  resetDrag(event:HammerInput) {
+  resetDrag(event: HammerInput) {
     if ( this.leftToRight ) {
       let currentPosition = this.previousXPosition - this.getContainerWidth();
       let newPosition = 0 - this.getContainerWidth();
@@ -188,7 +186,7 @@ export class InboxItemWrapper{
     }
   }
 
-  shortDrag(event:HammerInput) {
+  shortDrag(event: HammerInput) {
     if ( this.leftToRight ) {
       let currentPosition = this.previousXPosition - this.getContainerWidth();
       let newPosition = this.getContainerWidth() * 2;
@@ -198,7 +196,7 @@ export class InboxItemWrapper{
           this.leftShortSwipe.emit({});
         });
         animation.play();
-      } else{
+      } else {
         this.animateLeftCellOut(currentPosition, newPosition, this.maximumAchievedVelocity, SUGGESTED_VELOCITY, () => {
           this.animationComplete();
           this.leftShortSwipe.emit({});
@@ -213,7 +211,7 @@ export class InboxItemWrapper{
           this.rightShortSwipe.emit({});
         });
         animation.play();
-      } else{
+      } else {
         this.animateRightCellOut(currentPosition, newPosition, this.maximumAchievedVelocity, SUGGESTED_VELOCITY, () => {
           this.animationComplete();
           this.rightShortSwipe.emit({});
@@ -222,7 +220,7 @@ export class InboxItemWrapper{
     }
   }
 
-  longDrag(event:HammerInput) {
+  longDrag(event: HammerInput) {
     if ( this.leftToRight ) {
       let currentPosition = this.previousXPosition - this.getContainerWidth();
       let newPosition = this.getContainerWidth() * 2;
@@ -256,19 +254,19 @@ export class InboxItemWrapper{
     }
   }
 
-  processLeftToRightDrag(event:HammerInput) {
+  processLeftToRightDrag(event: HammerInput) {
     let currentPosition = this.previousXPosition - this.getContainerWidth();
     let newPosition = this.currentXPosition - this.getContainerWidth();
     this.animateLeftCellIn(currentPosition, newPosition);
   }
 
-  processRightToLeftDrag(event:HammerInput) {
+  processRightToLeftDrag(event: HammerInput) {
     let currentPosition = this.previousXPosition;
     let newPosition = this.currentXPosition;
     this.animateRightCellIn(currentPosition, newPosition);
   }
 
-  animateLeftCellIn(currentPosition:number, newPosition:number) {
+  animateLeftCellIn(currentPosition: number, newPosition: number) {
     let animation = new Animation(this.leftCellRef.nativeElement, {renderDelay: 0});
     animation.fromTo('translateX', `${currentPosition}px`, `${newPosition}px`);
     animation.play();
@@ -277,7 +275,7 @@ export class InboxItemWrapper{
   animateLeftCellOut(currentPosition: number, endPosition: number, maximumAchievedVelocity: number, suggestedVelocity: number, callback: Function) {
     let distance = Math.abs(endPosition - currentPosition);
     let velocity = Math.max(Math.abs(maximumAchievedVelocity), suggestedVelocity);
-    let transitionTimeInMillis = Math.abs(Math.floor(distance/velocity));
+    let transitionTimeInMillis = Math.abs(Math.floor(distance / velocity));
     let animation = new Animation(this.leftCellRef.nativeElement, {renderDelay: 0});
     animation.fromTo('translateX', `${currentPosition}px`, `${endPosition}px`);
     animation.duration(transitionTimeInMillis);
@@ -290,7 +288,7 @@ export class InboxItemWrapper{
     animation.play();
   }
 
-  animateRightCellIn(currentPosition:number, newPosition:number) {
+  animateRightCellIn(currentPosition: number, newPosition: number) {
     let animation = new Animation(this.rightCellRef.nativeElement, {renderDelay: 0});
     animation.fromTo('translateX', `${currentPosition}px`, `${newPosition}px`);
     animation.play();
@@ -299,7 +297,7 @@ export class InboxItemWrapper{
   animateRightCellOut(currentPosition: number, endPosition: number, maximumAchievedVelocity: number, suggestedVelocity: number, callback: Function) {
     let distance = Math.abs(endPosition - currentPosition);
     let velocity = Math.max(Math.abs(maximumAchievedVelocity), suggestedVelocity);
-    let transitionTimeInMillis = Math.abs(Math.floor(distance/velocity));
+    let transitionTimeInMillis = Math.abs(Math.floor(distance / velocity));
     let animation = new Animation(this.rightCellRef.nativeElement, {renderDelay: 0});
     animation.fromTo('translateX', `${currentPosition}px`, `${endPosition}px`);
     animation.duration(transitionTimeInMillis);
@@ -312,21 +310,19 @@ export class InboxItemWrapper{
     animation.play();
   }
 
-  animationComplete(){
+  animationComplete() {
     this.started = false;
     this.animating = false;
     this.state = STATE_INACTIVE;
     this.currentXPosition = null;
     this.previousXPosition = null;
     this.app.setEnabled(true);
-    //this.app.setScrollDisabled(false);
   }
 
   setState() {
     if ( this.percentageDragged < SHORT_DRAG_PERCENTAGE) {
       this.state = STATE_SHORT_SWIPE;
-    }
-    else{
+    } else {
       this.state = STATE_LONG_SWIPE;
     }
   }
@@ -369,9 +365,9 @@ export class InboxItemWrapper{
 }
 
 const DRAG_THRESHOLD = 80;
-const STATE_INACTIVE = "inactive";
-const STATE_SHORT_SWIPE = "short";
-const STATE_LONG_SWIPE = "long";
+const STATE_INACTIVE = 'inactive';
+const STATE_SHORT_SWIPE = 'short';
+const STATE_LONG_SWIPE = 'long';
 
 const SHORT_DRAG_PERCENTAGE = .60;
 

@@ -1,10 +1,10 @@
-import {Component, ContentChildren, ElementRef, EventEmitter, Input, QueryList, ViewChildren} from "@angular/core";
-import {App, AlertController, Animation, NavController} from 'ionic-angular';
+import { Component, ContentChildren, ElementRef, EventEmitter, Input, QueryList, ViewChildren } from '@angular/core';
+import { App, AlertController, Animation, NavController } from 'ionic-angular';
 
-import {EmailDataProvider, Email} from "./email-data-provider";
-import {InboxItemWrapper} from "./inbox-item-wrapper";
+import { EmailDataProvider, Email } from './email-data-provider';
+import { InboxItemWrapper } from './inbox-item-wrapper';
 
-import {SnoozeViewController} from '../snooze/snooze-view-controller';
+import { SnoozeViewController } from '../snooze/snooze-view-controller';
 
 @Component({
   selector: 'unread-inbox',
@@ -46,7 +46,7 @@ import {SnoozeViewController} from '../snooze/snooze-view-controller';
   </ion-list>
   `
 })
-export class UnreadInbox{
+export class UnreadInbox {
 
   @Input() reorderEnabled: boolean;
   @ViewChildren('instance', {read: ElementRef}) itemWrappers: QueryList<ElementRef>;
@@ -56,33 +56,33 @@ export class UnreadInbox{
               private app: App,
               private emailDataProvider: EmailDataProvider,
               private nav: NavController,
-              private snoozeViewController: SnoozeViewController){
+              private snoozeViewController: SnoozeViewController) {
     this.loadUnreadEmails();
   }
 
-  loadUnreadEmails(){
+  loadUnreadEmails() {
     this.emails = this.emailDataProvider.getUnreadEmails();
   }
 
-  favorite(email:any){
+  favorite(email) {
     email.favorited = !email.favorited;
   }
 
-  archive(index: number){
+  archive(index: number) {
     this.animateItemWrapperOut(index, () => {
       this.emailDataProvider.archiveEmail(this.emails[index]);
       this.loadUnreadEmails();
     });
   }
 
-  delete(index: number){
+  delete(index: number) {
     this.animateItemWrapperOut(index, () => {
       this.emailDataProvider.deleteEmail(this.emails[index]);
       this.loadUnreadEmails();
     });
   }
 
-  snooze(index: number){
+  snooze(index: number) {
     let snoozeView = this.snoozeViewController.create();
     snoozeView.onDidDismiss((data) => {
       this.animateItemWrapperOut(index, () => {
@@ -93,7 +93,7 @@ export class UnreadInbox{
     snoozeView.present(snoozeView);
   }
 
-  somethingElse(index: number){
+  somethingElse(index: number) {
     let alert = this.alertController.create({
       title: 'Some Action',
       subTitle: `w00t! You've taken an action! Try some other swipes!`,
@@ -102,9 +102,9 @@ export class UnreadInbox{
     alert.present();
   }
 
-  overrideAnimation(inboxItemWrapper: InboxItemWrapper, elementRef: ElementRef, currentPosition: number, originalNewPosition: number, maximumAchievedVelocity: number, minSuggestedVelocity: number): Animation{
+  overrideAnimation(inboxItemWrapper: InboxItemWrapper, elementRef: ElementRef, currentPosition: number, originalNewPosition: number, maximumAchievedVelocity: number, minSuggestedVelocity: number): Animation {
     let velocity = Math.max(Math.abs(maximumAchievedVelocity), minSuggestedVelocity);
-    let transitionTimeInMillis = Math.abs(Math.floor(currentPosition/velocity));
+    let transitionTimeInMillis = Math.abs(Math.floor(currentPosition / velocity));
     inboxItemWrapper.setState();
     let animation = new Animation(elementRef,  {renderDelay: 0});
     animation.fromTo('translateX', `${currentPosition}px`, `${0}px`);
@@ -112,7 +112,7 @@ export class UnreadInbox{
     return animation;
   }
 
-  animateItemWrapperOut(index: number, callback: () => any):void {
+  animateItemWrapperOut(index: number, callback: () => any): void {
     let array = this.itemWrappers.toArray();
     let animation = new Animation(array[index].nativeElement, {renderDelay: 0});
 
@@ -123,7 +123,7 @@ export class UnreadInbox{
     animation.play();
   }
 
-  reorder(fromTo: any){
+  reorder(fromTo: any) {
     let from = fromTo.from;
     let to = fromTo.to;
 

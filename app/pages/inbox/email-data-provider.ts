@@ -1,5 +1,6 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class EmailDataProvider {
 
   private emails: Email[];
@@ -70,7 +71,7 @@ export class EmailDataProvider {
   }
 
   reorder(fromIndex: number, toIndex: number) {
-    let temp = this.emails.concat();
+    let temp = this.getUnreadEmails();
     let tempValue = temp[fromIndex];
     temp.splice(fromIndex, 1);
     temp.splice(toIndex, 0,  tempValue);
@@ -80,7 +81,7 @@ export class EmailDataProvider {
   }
 }
 
-export class Email{
+export class Email {
 
   public state: string;
   constructor(public archived: boolean,
@@ -90,18 +91,15 @@ export class Email{
               public sender: string,
               public subject: string,
               public body: string,
-              public favorited:boolean = false) {
+              public favorited: boolean = false) {
 
     if ( archived ) {
       this.state = 'archived';
-    }
-    else if ( deleted ) {
+    } else if ( deleted ) {
       this.state = 'deleted';
-    }
-    else if ( snoozed ) {
+    } else if ( snoozed ) {
       this.state = 'snoozed';
-    }
-    else {
+    } else {
       this.state = 'unread';
     }
   }

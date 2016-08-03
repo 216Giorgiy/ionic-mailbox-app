@@ -64,14 +64,12 @@ export class TapGesture extends BaseHammerGesture {
       if ( this.onTapHandler ) {
         this.onTapHandler(event);
       }
-    }
-    catch (ex) {
+    } catch (ex) {
       console.debug(`onTapHandler: Error occured - ${ex.message}`);
       if ( ex instanceof CaptureError ) {
         this.notCaptured(event);
       }
-    }
-    finally {
+    } finally {
       this.delegate.release();
       this.started = false;
       this.captured = false;
@@ -88,8 +86,7 @@ export class TapGesture extends BaseHammerGesture {
         throw new Error('Missing delegate');
       }
       this.recognizerEnabled = true;
-    }
-    catch (ex) {
+    } catch (ex) {
         console.debug(`TapGestureRecognizer: Error occured during pointerdown - ${ex.message}`);
     }
   }

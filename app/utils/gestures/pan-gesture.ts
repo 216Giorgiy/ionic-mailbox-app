@@ -71,9 +71,6 @@ export class PanGesture extends BaseHammerGesture {
         throw new Error('Already captured');
       }
 
-      // release any existing gesture
-      //this.delegate.release();
-
       // try to start the gesture
       this.started = this.delegate.start();
       if ( ! this.started ) {
@@ -89,8 +86,7 @@ export class PanGesture extends BaseHammerGesture {
       if ( this.onPanStartHandler ) {
         this.onPanStartHandler(event);
       }
-    }
-    catch (ex) {
+    } catch (ex) {
       console.debug(`onPanStartHandler: Error occured - ${ex.message}`);
       if ( ex instanceof CaptureError ) {
         this.started = false;
@@ -112,8 +108,7 @@ export class PanGesture extends BaseHammerGesture {
       if ( this.onPanMoveHandler ) {
         this.onPanMoveHandler(event);
       }
-    }
-    catch (ex) {
+    } catch (ex) {
       console.debug(`onPanMoveHandler: Error occured - ${ex.message}`);
     }
   }
@@ -131,11 +126,9 @@ export class PanGesture extends BaseHammerGesture {
       if ( this.onPanEndHandler ) {
         this.onPanEndHandler(event);
       }
-    }
-    catch (ex) {
+    } catch (ex) {
       console.debug(`onPanEndHandler: Error occured - ${ex.message}`);
-    }
-    finally {
+    } finally {
       if ( this.delegate ) {
         this.delegate.release();
       }
@@ -149,11 +142,9 @@ export class PanGesture extends BaseHammerGesture {
       if ( this.onPanCancelHandler ) {
         this.onPanCancelHandler(event);
       }
-    }
-    catch (ex) {
+    } catch (ex) {
       console.debug(`onPanCancelHandler: Error occured - ${ex.message}`);
-    }
-    finally {
+    } finally {
       if ( this.delegate ) {
         this.delegate.release();
       }

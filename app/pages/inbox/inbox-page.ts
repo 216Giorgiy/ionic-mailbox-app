@@ -1,17 +1,17 @@
-import {Component, ElementRef, ViewChild} from "@angular/core";
-import {ModalController} from 'ionic-angular';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ModalController } from 'ionic-angular';
 
-import {ArchivedInbox} from './archived-inbox';
-import {SnoozedInbox} from './snoozed-inbox';
-import {UnreadInbox} from './unread-inbox';
+import { ArchivedInbox } from './archived-inbox';
+import { SnoozedInbox } from './snoozed-inbox';
+import { UnreadInbox } from './unread-inbox';
 
-import {ComposeView} from '../compose/compose-view';
+import { ComposeView } from '../compose/compose-view';
 
-import {PressGestureController} from '../../utils/gestures/press-gesture';
+import { PressGestureController } from '../../utils/gestures/press-gesture';
 
 @Component({
   directives: [ArchivedInbox, SnoozedInbox, UnreadInbox],
-  template:`
+  template: `
   <ion-header>
     <ion-navbar no-border-bottom>
       <ion-segment primary padding [ngModel]="activeSegment" (ngModelChange)="activeSegmentChanged($event)">
@@ -42,26 +42,26 @@ import {PressGestureController} from '../../utils/gestures/press-gesture';
   </ion-content>
   `
 })
-export class InboxPage{
+export class InboxPage {
 
   @ViewChild('content', {read: ElementRef}) content: ElementRef;
   private activeSegment: string;
   private reorderEnabled: boolean;
 
-  constructor(private modalController: ModalController, private pressGestureController: PressGestureController){
+  constructor(private modalController: ModalController, private pressGestureController: PressGestureController) {
       this.activeSegment = 'inbox';
   }
 
-  disableReorder(){
+  disableReorder() {
     this.reorderEnabled = false;
   }
 
-  activeSegmentChanged(newActiveSegment: string){
+  activeSegmentChanged(newActiveSegment: string) {
     this.disableReorder();
     this.activeSegment = newActiveSegment;
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     let gesture = this.pressGestureController.create(this.content, {});
     gesture.onPress( (event) => {
       if ( this.activeSegment === 'inbox' ) {
@@ -70,7 +70,7 @@ export class InboxPage{
     });
   }
 
-  openCompose(){
+  openCompose() {
     let modal = this.modalController.create(ComposeView);
     modal.present();
   }

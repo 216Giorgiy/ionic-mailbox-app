@@ -30,12 +30,10 @@ import { ViewController } from 'ionic-angular';
           <ion-label floating>Subject:</ion-label>
           <ion-input type="text"></ion-input>
         </ion-item>
-        <ion-item class="compose-body">
-          <ion-label floating></ion-label>
-          <ion-textarea [(ngModel)]="body"></ion-textarea>
-        </ion-item>
+        <ion-textarea [(ngModel)]="body" padding></ion-textarea>
       </div>
     </div>
+
   </ion-content>
   `
 })
@@ -44,10 +42,10 @@ export class ComposeView {
   private body: string;
 
   constructor(private viewController: ViewController) {
-    this.body = '\n\n\n\nSent from Ionic Mailbox';
+    this.body = '\n\nSent from Ionic Mailbox';
   }
 
-  dismiss(){
+  dismiss() {
     this.viewController.dismiss();
   }
 }

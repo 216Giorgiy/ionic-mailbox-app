@@ -1,7 +1,7 @@
-import {ElementRef} from '@angular/core';
-import {Animation, Transition, TransitionOptions, ViewController} from 'ionic-angular';
+import { ElementRef } from '@angular/core';
+import { Animation, Transition, TransitionOptions, ViewController } from 'ionic-angular';
 
-import {SUGGESTED_VELOCITY} from '../inbox/inbox-item-wrapper';
+import { SUGGESTED_VELOCITY } from '../inbox/inbox-item-wrapper';
 
 export const TRANSITION_IN_KEY: string = 'snoozeViewEnter';
 export const TRANSITION_OUT_KEY: string = 'snoozeViewLeave';
@@ -51,7 +51,7 @@ export class SnoozeSlideOutTransition extends Transition {
     swipeAnimation.after.removeClass('short');
 
     let distance = wrapper.clientWidth;
-    let duration = distance/SUGGESTED_VELOCITY;
+    let duration = distance / SUGGESTED_VELOCITY;
 
     this.element(leavingView.pageRef())
       .easing('ease')

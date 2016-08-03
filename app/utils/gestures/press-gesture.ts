@@ -63,14 +63,12 @@ export class PressGesture extends BaseHammerGesture {
       if ( this.onPressHandler ) {
         this.onPressHandler(event);
       }
-    }
-    catch (ex) {
+    } catch (ex) {
       console.debug(`onPressHandler: Error occured - ${ex.message}`);
       if ( ex instanceof CaptureError ) {
         this.notCaptured(event);
       }
-    }
-    finally {
+    } finally {
       this.delegate.release();
       this.started = false;
       this.captured = false;

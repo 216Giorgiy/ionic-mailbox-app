@@ -90,8 +90,7 @@ export class RotateGesture extends BaseHammerGesture {
       if ( this.onRotateStartHandler ) {
         this.onRotateStartHandler(event);
       }
-    }
-    catch (ex) {
+    } catch (ex) {
       console.debug(`onRotateStartHandler: Error occured - ${ex.message}`);
       if ( ex instanceof CaptureError ) {
         this.started = false;
@@ -113,8 +112,7 @@ export class RotateGesture extends BaseHammerGesture {
       if ( this.onRotateMoveHandler ) {
         this.onRotateMoveHandler(event);
       }
-    }
-    catch (ex) {
+    } catch (ex) {
       console.debug(`onRotateMoveHandler: Error occured - ${ex.message}`);
     }
   }
@@ -132,11 +130,9 @@ export class RotateGesture extends BaseHammerGesture {
       if ( this.onRotateEndHandler ) {
         this.onRotateEndHandler(event);
       }
-    }
-    catch (ex) {
+    } catch (ex) {
       console.debug(`onRotateEndHandler: Error occured - ${ex.message}`);
-    }
-    finally {
+    } finally {
       if ( this.delegate ) {
         this.delegate.release();
       }
@@ -150,11 +146,9 @@ export class RotateGesture extends BaseHammerGesture {
       if ( this.onRotateCancelHandler ) {
         this.onRotateCancelHandler(event);
       }
-    }
-    catch (ex) {
+    } catch (ex) {
       console.debug(`onRotateCancelHandler: Error occured - ${ex.message}`);
-    }
-    finally {
+    } finally {
       if ( this.delegate ) {
         this.delegate.release();
       }

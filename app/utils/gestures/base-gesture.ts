@@ -70,7 +70,7 @@ export abstract class BaseHammerGesture {
     inputEventHandler(event: HammerInput) {
       (<any>event).releaseGesture = () => {
         this.pointerUp(event);
-      }
+      };
       if ( ! this.eventBlocker ) {
         // hack to make up for buggy definition file
         let eventType = <number> <any> event.eventType;
@@ -112,8 +112,7 @@ export abstract class BaseHammerGesture {
         this.recognizerEnabled = true;
         this.started = false;
         this.captured = false;
-      }
-      catch (ex) {
+      } catch (ex) {
         console.log(`Gesture Recognizer: Error occured during pointerdown - ${ex.message}`);
       }
     }
@@ -135,8 +134,7 @@ export abstract class BaseHammerGesture {
         this.recognizerEnabled = false;
         this.started = false;
         this.captured = false;
-      }
-      catch (ex) {
+      } catch (ex) {
         console.log(`Gesture Recognizer: Error occured during pointerup - ${ex.message}`);
       }
     }

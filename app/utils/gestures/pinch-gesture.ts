@@ -105,8 +105,7 @@ export class PinchGesture extends BaseHammerGesture {
       if ( this.onPinchStartHandler ) {
         this.onPinchStartHandler(event);
       }
-    }
-    catch (ex) {
+    } catch (ex) {
       console.debug(`onPinchStartHandler: Error occured - ${ex.message}`);
       if ( ex instanceof CaptureError ) {
         this.started = false;
@@ -128,8 +127,7 @@ export class PinchGesture extends BaseHammerGesture {
       if ( this.onPinchMoveHandler ) {
         this.onPinchMoveHandler(event);
       }
-    }
-    catch (ex) {
+    } catch (ex) {
       console.debug(`onPinchMoveHandler: Error occured - ${ex.message}`);
     }
   }
@@ -147,8 +145,7 @@ export class PinchGesture extends BaseHammerGesture {
       if ( this.onPinchInHandler ) {
         this.onPinchInHandler(event);
       }
-    }
-    catch (ex) {
+    } catch (ex) {
       console.debug(`onPinchInHandler: Error occured - ${ex.message}`);
     }
   }
@@ -166,8 +163,7 @@ export class PinchGesture extends BaseHammerGesture {
       if ( this.onPinchOutHandler ) {
         this.onPinchOutHandler(event);
       }
-    }
-    catch (ex) {
+    } catch (ex) {
       console.debug(`onPinchOutHandler: Error occured - ${ex.message}`);
     }
   }
@@ -185,11 +181,9 @@ export class PinchGesture extends BaseHammerGesture {
       if ( this.onPinchEndHandler ) {
         this.onPinchEndHandler(event);
       }
-    }
-    catch (ex) {
+    } catch (ex) {
       console.debug(`onPinchEndHandler: Error occured - ${ex.message}`);
-    }
-    finally {
+    } finally {
       if ( this.delegate ) {
         this.delegate.release();
       }
@@ -203,11 +197,9 @@ export class PinchGesture extends BaseHammerGesture {
       if ( this.onPinchCancelHandler ) {
         this.onPinchCancelHandler(event);
       }
-    }
-    catch (ex) {
+    } catch (ex) {
       console.debug(`onPinchCancelHandler: Error occured - ${ex.message}`);
-    }
-    finally {
+    } finally {
       if ( this.delegate ) {
         this.delegate.release();
       }

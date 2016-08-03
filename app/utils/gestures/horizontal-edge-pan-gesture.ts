@@ -62,8 +62,7 @@ export class HorizontalEdgePanGesture extends PanGesture {
       if ( this.onPanStartHandler ) {
         this.onPanStartHandler(event);
       }
-    }
-    catch (ex) {
+    } catch (ex) {
       console.debug(`onPanStartHandler: Error occured - ${ex.message}`);
       if ( ex instanceof CaptureError ) {
         this.started = false;
@@ -76,8 +75,7 @@ export class HorizontalEdgePanGesture extends PanGesture {
     if ( x >= this.startX &&  x <= this.startX + this.options.maxDistanceFromEdge ) {
       // it's a valid left edge
       return true;
-    }
-    else if ( x <= this.endX && x >= this.endX - this.options.maxDistanceFromEdge ) {
+    } else if ( x <= this.endX && x >= this.endX - this.options.maxDistanceFromEdge ) {
       // it's a valid right edge
       return true;
     }
@@ -108,14 +106,13 @@ export class HorizontalEdgePanGesture extends PanGesture {
       this.recognizerEnabled = true;
       this.started = false;
       this.captured = false;
-    }
-    catch (ex) {
+    } catch (ex) {
       console.log(`Gesture Recognizer: Error occured during pointerdown - ${ex.message}`);
     }
   }
 }
 
-export interface EdgePanGestureOptions extends PanGestureOptions{
+export interface EdgePanGestureOptions extends PanGestureOptions {
   maxAngle?: number;
   maxDistanceFromEdge?: number;
 }
